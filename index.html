@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RTR — Risk To Reward</title>
+<style>
+:root{--bg:#070b10;--panel:#0f151d;--panel2:#151d27;--line:#25303d;--text:#f5f7fa;--muted:#8793a3;--green:#39d98a;--red:#ff6471;--gold:#d7b46a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,#13221c 0,#070b10 35%);color:var(--text);font:15px Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}.wrap{max-width:1180px;margin:auto;padding:18px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.5px}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#39d98a,#187c53);display:grid;place-items:center;color:#06120c;font-weight:1000;font-size:18px}.sub{font-size:10px;color:#9ba6b5;letter-spacing:1.8px;margin-top:2px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.top-actions{display:flex;gap:8px}.btn{background:var(--green);color:#06120c;border:0;border-radius:11px;padding:11px 15px;font-weight:850;cursor:pointer}.btn.dark{background:var(--panel2);color:#fff;border:1px solid var(--line)}
+.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:18px}.tab{border:1px solid var(--line);background:var(--panel);color:#aeb8c5;border-radius:10px;padding:10px 14px;cursor:pointer;white-space:nowrap}.tab.active{background:var(--green);border-color:var(--green);color:#06120c;font-weight:800}
+.hero{background:linear-gradient(135deg,#101a19,#10151d 55%,#0d1219);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:14px}.eyebrow{font-size:11px;color:var(--green);font-weight:800;letter-spacing:1.5px}.hero h1{font-size:30px;margin:7px 0}.hero p{color:var(--muted);margin:0;max-width:700px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:rgba(15,21,29,.92);border:1px solid var(--line);border-radius:16px;padding:16px}.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.value{font-size:26px;font-weight:900;margin-top:7px}.green{color:var(--green)}.red{color:var(--red)}.muted{color:var(--muted)}
+.section{margin-top:14px}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-title h2{font-size:17px;margin:0}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{font-size:11px;color:var(--muted);text-transform:uppercase}.pill{padding:5px 8px;border-radius:999px;background:#19232e;font-size:11px}.good{background:#103523;color:#72e6aa}.bad{background:#35151b;color:#ff8790}
+.profile{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}.bars{display:grid;gap:12px}.barrow{display:grid;grid-template-columns:85px 1fr 38px;gap:9px;align-items:center;font-size:12px}.bar{height:9px;background:#1a232d;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--green);border-radius:99px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;background:#090e14;border:1px solid var(--line);border-radius:10px;color:#fff;padding:12px}.field textarea{min-height:90px}.full{grid-column:1/-1}
+.hidden{display:none}.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:rgba(15,21,29,.96);border:1px solid var(--line);border-radius:22px;padding:25px}.loginbox h1{margin:18px 0 4px}.loginbox p{color:var(--muted)}.loginbox .field{margin:12px 0}.wide{width:100%;margin-top:6px}
+.small{font-size:12px}.click{cursor:pointer}.click:hover{background:#121c26}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.profile{grid-template-columns:1fr}.form{grid-template-columns:1fr}.hero h1{font-size:25px}}
+@media(max-width:500px){.wrap{padding:12px}.grid{grid-template-columns:1fr 1fr}.value{font-size:22px}.top-actions .dark{display:none}}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+  <div class="loginbox">
+    <div class="brand"><div class="mark">R</div><div><div>RTR</div><div class="sub">RISK TO REWARD</div></div></div>
+    <h1>Welcome to RTR</h1><p>Trading performance, risk management and psychology — all in one place.</p>
+    <div class="field"><label>Email</label><input id="email" value="coach@rtr.demo"></div>
+    <div class="field"><label>Password</label><input id="password" type="password" value="demo"></div>
+    <button class="btn wide" onclick="login()">Sign in</button>
+    <p class="small">Demo access: coach@rtr.demo / demo</p>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+<div class="wrap">
+<header><div class="brand"><div class="mark">R</div><div><div>RTR</div><div class="sub">RISK TO REWARD</div></div></div><div class="top-actions"><button class="btn dark" onclick="logout()">Log out</button><button class="btn" onclick="openView('trade')">+ Log Trade</button></div></header>
+<nav class="tabs">
+<button class="tab active" id="t-dashboard" onclick="openView('dashboard')">Overview</button>
+<button class="tab" id="t-students" onclick="openView('students')">Students</button>
+<button class="tab" id="t-trade" onclick="openView('trade')">Log Trade</button>
+<button class="tab" id="t-psych" onclick="openView('psych')">Psychology</button>
+</nav>
+
+<section id="dashboard">
+<div class="hero"><div class="eyebrow">COACH COMMAND CENTRE</div><h1>Risk To Reward</h1><p>Track student performance, risk discipline and trading psychology from one dashboard.</p></div>
+<div class="grid">
+<div class="card"><div class="label">Students</div><div class="value" id="sCount">0</div></div>
+<div class="card"><div class="label">Group P/L</div><div class="value green" id="gPL">£0</div></div>
+<div class="card"><div class="label">Avg win rate</div><div class="value" id="gWin">0%</div></div>
+<div class="card"><div class="label">Avg confidence</div><div class="value" id="gConf">0/10</div></div>
+</div>
+<div class="section card"><div class="section-title"><h2>Student performance</h2><span class="muted small">Tap a student</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Student</th><th>P/L</th><th>Win rate</th><th>Confidence</th><th>Plan discipline</th></tr></thead><tbody id="dash"></tbody></table></div></div>
+</section>
+
+<section id="students" class="hidden">
+<div class="section card"><div class="section-title"><h2>Students</h2><button class="btn" onclick="addDemoStudent()">+ Student</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Name</th><th>Email</th><th>Trades</th><th>P/L</th><th></th></tr></thead><tbody id="studentsTable"></tbody></table></div></div>
+<div id="profile" class="section hidden"></div>
+</section>
+
+<section id="trade" class="hidden">
+<div class="card"><div class="section-title"><h2>Log a trade</h2><span class="pill">Psychology included</span></div>
+<form id="tradeForm" class="form">
+<div class="field"><label>Student</label><select id="student"></select></div><div class="field"><label>Asset / Pair</label><input id="asset" placeholder="XAUUSD"></div>
+<div class="field"><label>Direction</label><select id="direction"><option>Buy</option><option>Sell</option></select></div><div class="field"><label>Risk %</label><input id="risk" type="number" step=".1" placeholder="1"></div>
+<div class="field"><label>Risk : Reward</label><input id="rr" type="number" step=".1" placeholder="2.5"></div><div class="field"><label>Profit / Loss (£)</label><input id="pl" type="number" step=".01"></div>
+<div class="field"><label>Strategy</label><input id="strategy" placeholder="Break & Retest"></div><div class="field"><label>Followed the plan?</label><select id="followed"><option value="yes">Yes</option><option value="no">No</option></select></div>
+<div class="field full"><label>Why did you take the trade?</label><textarea id="reason"></textarea></div>
+<div class="field full"><label>How did you feel before?</label><textarea id="before"></textarea></div>
+<div class="field full"><label>How did you feel during?</label><textarea id="during"></textarea></div>
+<div class="field full"><label>How did you feel after?</label><textarea id="after"></textarea></div>
+<div class="grid full">
+<div class="card"><div class="label">Confidence</div><input id="confidence" type="range" min="1" max="10" value="5" oninput="cv.textContent=this.value"><b id="cv">5</b>/10</div>
+<div class="card"><div class="label">Stress</div><input id="stress" type="range" min="1" max="10" value="5" oninput="sv.textContent=this.value"><b id="sv">5</b>/10</div>
+<div class="card"><div class="label">Fear</div><input id="fear" type="range" min="1" max="10" value="5" oninput="fv.textContent=this.value"><b id="fv">5</b>/10</div>
+<div class="card"><div class="label">Greed</div><input id="greed" type="range" min="1" max="10" value="5" oninput="gv.textContent=this.value"><b id="gv">5</b>/10</div>
+</div>
+<div class="field"><label>Trade rating</label><input id="rating" type="range" min="1" max="10" value="5"></div>
+<div class="full"><button class="btn" type="submit">Save trade to RTR</button></div>
+</form></div></section>
+
+<section id="psych" class="hidden">
+<div class="hero"><div class="eyebrow">TRADING PSYCHOLOGY</div><h1>Mindset patterns</h1><p>See where emotion and discipline are affecting performance.</p></div>
+<div class="profile"><div class="card"><h2>Group averages</h2><div class="bars" id="bars"></div></div><div class="card"><h2>Coach focus</h2><p id="focus" class="muted"></p></div></div>
+</section>
+</div></div>
+
+<script>
+const KEY='rtr_pro_demo_v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'null')||{students:[
+{id:1,name:'Jake',email:'jake@example.com',notes:'Work on patience when trades move into profit.',trades:[
+{asset:'XAUUSD',pl:420,confidence:8,stress:3,fear:2,greed:4,followed:'yes',rating:9,rr:2.5,before:'Calm and focused',during:'Comfortable',after:'Happy with execution'},
+{asset:'EURUSD',pl:-110,confidence:5,stress:7,fear:7,greed:5,followed:'no',rating:4,rr:1.2,before:'Felt rushed',during:'Nervous',after:'Frustrated'}]},
+{id:2,name:'Liam',email:'liam@example.com',notes:'',trades:[{asset:'GBPUSD',pl:180,confidence:7,stress:4,fear:3,greed:3,followed:'yes',rating:8,rr:2,before:'Focused',during:'Calm',after:'Pleased'}]},
+{id:3,name:'Ryan',email:'ryan@example.com',notes:'',trades:[]}]};
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function metrics(s){let t=s.trades||[],pl=t.reduce((a,x)=>a+Number(x.pl||0),0),w=t.filter(x=>x.pl>0).length;return{t,pl,win:t.length?w/t.length*100:0,conf:t.length?t.reduce((a,x)=>a+Number(x.confidence||0),0)/t.length:0,stress:t.length?t.reduce((a,x)=>a+Number(x.stress||0),0)/t.length:0,fear:t.length?t.reduce((a,x)=>a+Number(x.fear||0),0)/t.length:0,greed:t.length?t.reduce((a,x)=>a+Number(x.greed||0),0)/t.length:0,disc:t.length?t.filter(x=>x.followed==='yes').length/t.length*100:0}}
+function money(n){return(n<0?'-':'')+'£'+Math.abs(n).toLocaleString(undefined,{maximumFractionDigits:2})}
+function login(){
+ const email=document.getElementById('email').value.trim();
+ const password=document.getElementById('password').value;
+ if(email!=='coach@rtr.demo' || password!=='demo'){alert('Demo login: coach@rtr.demo / demo');return}
+ document.getElementById('login').classList.add('hidden');
+ document.getElementById('app').classList.remove('hidden');
+ refresh();
+}
+function logout(){document.getElementById('app').classList.add('hidden');document.getElementById('login').classList.remove('hidden')}
+function openView(id){['dashboard','students','trade','psych'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));['dashboard','students','trade','psych'].forEach(x=>document.getElementById('t-'+x).classList.toggle('active',x===id));refresh()}
+function refresh(){
+let ms=data.students.map(metrics),total=ms.reduce((a,m)=>a+m.pl,0);
+document.getElementById('sCount').textContent=data.students.length;document.getElementById('gPL').textContent=money(total);document.getElementById('gWin').textContent=(ms.length?ms.reduce((a,m)=>a+m.win,0)/ms.length:0).toFixed(0)+'%';document.getElementById('gConf').textContent=(ms.length?ms.reduce((a,m)=>a+m.conf,0)/ms.length:0).toFixed(1)+'/10';
+document.getElementById('dash').innerHTML=data.students.map(s=>{let m=metrics(s);return `<tr class="click" onclick="view(${s.id})"><td><b>${s.name}</b><br><span class="muted small">${s.email}</span></td><td class="${m.pl>=0?'green':'red'}">${money(m.pl)}</td><td>${m.win.toFixed(0)}%</td><td>${m.conf.toFixed(1)}/10</td><td>${m.disc.toFixed(0)}%</td></tr>`}).join('');
+document.getElementById('studentsTable').innerHTML=data.students.map(s=>{let m=metrics(s);return `<tr><td><b>${s.name}</b></td><td>${s.email}</td><td>${m.t.length}</td><td class="${m.pl>=0?'green':'red'}">${money(m.pl)}</td><td><button class="btn dark" onclick="view(${s.id})">View</button></td></tr>`}).join('');
+document.getElementById('student').innerHTML=data.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+let all=data.students.flatMap(s=>s.trades||[]), av=k=>all.length?all.reduce((a,x)=>a+Number(x[k]||0),0)/all.length:0;
+document.getElementById('bars').innerHTML=[['Confidence',av('confidence')],['Stress',av('stress')],['Fear',av('fear')],['Greed',av('greed')]].map(x=>`<div class="barrow"><span>${x[0]}</span><div class="bar"><div class="fill" style="width:${x[1]*10}%"></div></div><b>${x[1].toFixed(1)}</b></div>`).join('');
+document.getElementById('focus').textContent=all.length?`The group averages ${av('confidence').toFixed(1)}/10 confidence, ${av('stress').toFixed(1)}/10 stress, ${av('fear').toFixed(1)}/10 fear and ${av('greed').toFixed(1)}/10 greed. Use individual profiles to identify students whose emotions repeatedly line up with poor execution.`:'Log trades to generate psychology insights.';
+}
+function view(id){openView('students');let s=data.students.find(x=>x.id===id),m=metrics(s),p=document.getElementById('profile');p.classList.remove('hidden');p.innerHTML=`<div class="card"><div class="section-title"><div><h2>${s.name}</h2><span class="muted">${s.email}</span></div><span class="pill">RTR STUDENT</span></div><div class="grid"><div><div class="label">P/L</div><div class="value ${m.pl>=0?'green':'red'}">${money(m.pl)}</div></div><div><div class="label">Win rate</div><div class="value">${m.win.toFixed(0)}%</div></div><div><div class="label">Confidence</div><div class="value">${m.conf.toFixed(1)}/10</div></div><div><div class="label">Discipline</div><div class="value">${m.disc.toFixed(0)}%</div></div></div><div class="section"><div class="section-title"><h2>Coach notes</h2><button class="btn" onclick="saveNotes(${id})">Save</button></div><textarea id="notes" style="width:100%;min-height:80px;background:#090e14;border:1px solid var(--line);border-radius:10px;color:#fff;padding:12px">${s.notes||''}</textarea></div><div class="section"><h2>Trade history</h2><div class="table-wrap"><table class="table"><thead><tr><th>Asset</th><th>R:R</th><th>P/L</th><th>Confidence</th><th>Stress</th><th>Plan</th><th>Before</th><th>After</th></tr></thead><tbody>${m.t.map(t=>`<tr><td>${t.asset}</td><td>1:${t.rr||'-'}</td><td class="${t.pl>=0?'green':'red'}">${money(Number(t.pl))}</td><td>${t.confidence}/10</td><td>${t.stress}/10</td><td>${t.followed==='yes'?'<span class="pill good">Followed</span>':'<span class="pill bad">Broken</span>'}</td><td>${t.before||''}</td><td>${t.after||''}</td></tr>`).join('')}</tbody></table></div></div></div>`}
+function saveNotes(id){data.students.find(x=>x.id===id).notes=document.getElementById('notes').value;save();refresh();alert('Coach notes saved.')}
+function addDemoStudent(){let n=prompt('Student name?');if(!n)return;data.students.push({id:Date.now(),name:n,email:n.toLowerCase().replace(/\\s+/g,'.')+'@rtr.demo',notes:'',trades:[]});save();refresh()}
+document.getElementById('tradeForm').addEventListener('submit',e=>{e.preventDefault();let s=data.students.find(x=>x.id==document.getElementById('student').value);s.trades.push({asset:asset.value,pl:Number(pl.value||0),risk:risk.value,rr:rr.value,strategy:strategy.value,reason:reason.value,before:before.value,during:during.value,after:after.value,confidence:Number(confidence.value),stress:Number(stress.value),fear:Number(fear.value),greed:Number(greed.value),followed:followed.value,rating:Number(rating.value)});save();e.target.reset();openView('students');view(s.id)})
+document.getElementById('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+</script>
+</body>
+</html>
